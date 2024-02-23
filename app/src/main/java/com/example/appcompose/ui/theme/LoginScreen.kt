@@ -2,6 +2,7 @@ package com.example.appcompose.ui.theme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,11 +26,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.appcompose.AuthViewModel
 import com.example.appcompose.R
 
 @Composable
 
-fun LoginScreen(){
+fun LoginScreen(
+    navController: NavController
+){
+    val viewModel = viewModel<AuthViewModel>()
     var usuario by remember { mutableStateOf("")}
     var senha by remember { mutableStateOf("")}
 
@@ -37,51 +44,63 @@ fun LoginScreen(){
         modifier = Modifier.fillMaxSize(),
         color = Color.LightGray
     ) {
-       Column (
-           modifier = Modifier.fillMaxSize(),
-           verticalArrangement = Arrangement.Center,
-           horizontalAlignment = Alignment.CenterHorizontally,
-       ) {
-           Image(
-               painter = painterResource(id = R.drawable.ifro_campus_vertical),
-               contentDescription = null,
-               modifier = Modifier
-                   .padding(bottom = 24.dp)
-                   .size(150.dp)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ifro_campus_vertical),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(bottom = 24.dp)
+                    .size(150.dp)
 
-           )
+            )
 
-           OutlinedTextField(
-               value = usuario,
-               onValueChange = { usuario = it},
-               label = { Text("Usuario") },
-           )
+            OutlinedTextField(
+                value = usuario,
+                onValueChange = { usuario = it },
+                label = { Text("Usuario") },
+            )
 
-           OutlinedTextField(
-               value = senha,
-               onValueChange ={senha = it},
-               label = { Text("Senha")},
-               visualTransformation = PasswordVisualTransformation(),
-               keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-               modifier = Modifier
-                   //.padding(10.dp)
-                   //.width(350.dp)
-           )
+            OutlinedTextField(
+                value = senha,
+                onValueChange = { senha = it },
+                label = { Text("Senha") },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier
+                //.padding(10.dp)
+                //.width(350.dp)
+            )
 
-           Button(onClick = { },
-               colors = ButtonDefaults.run { buttonColors(Color.Red)},
-           ) {
-               Text("Entrar")
+            Row {
 
-           }
-       }
 
+                Button(
+                    onClick = {
+                        viewModel.login(
+                            usuario,
+                            senha,
+                            onSucess = {
+                                navController.navigate("inicio")
+                            },
+
+                            onError = {
+
+                            }
+                        )
+                    },
+                    colors = ButtonDefaults.run { buttonColors(Color.Red) },
+                ) {
+                    Text("Entrar")
+
+                }
+            }
+        }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview(){
-    LoginScreen()
-}
+
 
