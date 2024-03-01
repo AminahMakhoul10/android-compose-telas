@@ -14,8 +14,9 @@ import com.example.appcompose.ui.theme.AppcomposeTheme
 import com.example.appcompose.ui.theme.InicioScreen
 import com.example.appcompose.ui.theme.LoginScreen
 import com.example.appcompose.ui.theme.MinhaContaScreen
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

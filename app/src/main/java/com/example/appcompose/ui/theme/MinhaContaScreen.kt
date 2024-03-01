@@ -74,7 +74,7 @@ fun MinhaContaScreen(
                     .align(Alignment.BottomEnd)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.`ic_edit1.xml`),
+                    painter = painterResource(id = R.drawable.ic_edit),
                     contentDescription = null,
                     tint = Color.White
                 )

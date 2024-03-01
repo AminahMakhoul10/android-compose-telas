@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -24,11 +23,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.appcompose.AuthViewModel
+import com.example.appcompose.viewmodel.AuthViewModel
 import com.example.appcompose.R
 
 @Composable
@@ -36,9 +34,10 @@ import com.example.appcompose.R
 fun LoginScreen(
     navController: NavController
 ){
-    val viewModel = viewModel<AuthViewModel>()
+    val authViewModel = hiltViewModel<AuthViewModel>()
     var usuario by remember { mutableStateOf("")}
     var senha by remember { mutableStateOf("")}
+    var error by remember { mutableStateOf("")}
 
     Surface (
         modifier = Modifier.fillMaxSize(),
@@ -58,6 +57,10 @@ fun LoginScreen(
 
             )
 
+            if (error.isNotBlank()){
+                Text(error)
+            }
+
             OutlinedTextField(
                 value = usuario,
                 onValueChange = { usuario = it },
@@ -75,19 +78,19 @@ fun LoginScreen(
                 //.width(350.dp)
             )
 
+
             Row {
-
-
                 Button(
                     onClick = {
-                        viewModel.login(
+                        authViewModel.login(
                             usuario,
                             senha,
                             onSucess = {
                                 navController.navigate("inicio")
                             },
 
-                            onError = {
+                            onError = {message ->
+                                error = message
 
                             }
                         )
