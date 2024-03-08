@@ -54,9 +54,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .padding(bottom = 24.dp)
                     .size(150.dp)
-
             )
-
             if (error.isNotBlank()){
                 Text(error)
             }
@@ -77,8 +75,6 @@ fun LoginScreen(
                 //.padding(10.dp)
                 //.width(350.dp)
             )
-
-
             Row {
                 Button(
                     onClick = {
@@ -101,6 +97,10 @@ fun LoginScreen(
 
                 }
             }
+        }
+
+        if (authViewModel.loading.value){
+            CarregarScreen()
         }
     }
 }

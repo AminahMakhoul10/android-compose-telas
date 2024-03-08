@@ -19,7 +19,6 @@ fun InicioScreen(
 ){
 
     Surface (
-
         modifier = Modifier.fillMaxSize(),
         color = Color.LightGray
      ) {

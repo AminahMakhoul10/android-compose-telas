@@ -50,7 +50,6 @@ fun MinhaContaScreen(
             "Minha conta",
             style = MaterialTheme.typography.headlineMedium
         )
-
         Box(
             modifier = Modifier.padding(16.dp)
         ) {

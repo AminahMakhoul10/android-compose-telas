@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appcompose.ui.theme.AppcomposeTheme
+import com.example.appcompose.ui.theme.CarregarScreen
 import com.example.appcompose.ui.theme.InicioScreen
 import com.example.appcompose.ui.theme.LoginScreen
 import com.example.appcompose.ui.theme.MinhaContaScreen
@@ -32,7 +33,6 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController,
                         startDestination = "login"){
 
-                        
                         composable("inicio"){
                             InicioScreen(navController)
                         }
